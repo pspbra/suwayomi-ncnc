@@ -1,0 +1,108 @@
+/*
+ * Copyright (C) Contributors to the Suwayomi project
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import ReplayIcon from '@mui/icons-material/Replay';
+import { memo, useMemo, useRef } from 'react';
+import { useLingui } from '@lingui/react/macro';
+import { CustomTooltip } from '@/base/components/CustomTooltip.tsx';
+import { ReaderLibraryButton } from '@/features/reader/overlay/navigation/components/ReaderLibraryButton.tsx';
+import { ReaderBookmarkButton } from '@/features/reader/overlay/navigation/components/ReaderBookmarkButton.tsx';
+import { IconBrowser } from '@/assets/icons/IconBrowser.tsx';
+import { IconWebView } from '@/assets/icons/IconWebView.tsx';
+import { FALLBACK_CHAPTER } from '@/features/chapter/Chapter.constants.ts';
+import { requestManager } from '@/lib/requests/RequestManager.ts';
+import {
+    getReaderPagesStore,
+    useReaderChaptersStore,
+    useReaderPagesStore,
+    useReaderStore,
+} from '@/features/reader/stores/ReaderStore.ts';
+import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
+import ShareIcon from '@mui/icons-material/Share';
+import { ShareGuard } from '@/base/components/guard/ShareGuard.tsx';
+
+export const ReaderNavBarDesktopActions = memo(() => {
+    const mangaTitle = useReaderStore((state) => state.manga?.title);
+    const { id, name, isBookmarked, realUrl } = useReaderChaptersStore((state) => ({
+        id: state.currentChapter?.id ?? FALLBACK_CHAPTER.id,
+        name: state.currentChapter?.name ?? FALLBACK_CHAPTER.name,
+        isBookmarked: state.currentChapter?.isBookmarked ?? FALLBACK_CHAPTER.isBookmarked,
+        realUrl: state.currentChapter?.realUrl ?? FALLBACK_CHAPTER.realUrl,
+    }));
+
+    const { t } = useLingui();
+    const pageLoadStates = useReaderPagesStore('pageLoadStates');
+
+    const pageRetryKeyPrefix = useRef<number>(0);
+
+    const haveSomePagesFailedToLoad = useMemo(
+        () => pageLoadStates.some((pageLoadState) => pageLoadState.error),
+        [pageLoadStates],
+    );
+
+    return (
+        <Stack sx={{ flexDirection: 'row', justifyContent: 'center', gap: 1 }}>
+            <ReaderLibraryButton />
+            <ReaderBookmarkButton id={id} isBookmarked={isBookmarked} />
+            <CustomTooltip title={t`Retry errored pages`} disabled={!haveSomePagesFailedToLoad}>
+                <IconButton
+                    onClick={() => {
+                        getReaderPagesStore().setPageLoadStates((statePageLoadStates) =>
+                            statePageLoadStates.map((pageLoadState) => ({
+                                url: pageLoadState.url,
+                                loaded: pageLoadState.loaded,
+                            })),
+                        );
+                        getReaderPagesStore().setRetryFailedPagesKeyPrefix(`${pageRetryKeyPrefix.current}`);
+                        pageRetryKeyPrefix.current = (pageRetryKeyPrefix.current + 1) % 1000;
+                    }}
+                    disabled={!haveSomePagesFailedToLoad}
+                    color="inherit"
+                >
+                    <ReplayIcon />
+                </IconButton>
+            </CustomTooltip>
+            <CustomTooltip title={t`Open in browser`} disabled={!realUrl}>
+                <IconButton disabled={!realUrl} href={realUrl ?? ''} rel="noreferrer" target="_blank" color="inherit">
+                    <IconBrowser />
+                </IconButton>
+            </CustomTooltip>
+            <CustomTooltip title={t`Open in WebView`} disabled={!realUrl}>
+                <IconButton
+                    disabled={!realUrl}
+                    href={realUrl ? requestManager.getWebviewUrl(realUrl) : ''}
+                    rel="noreferrer"
+                    target="_blank"
+                    color="inherit"
+                >
+                    <IconWebView />
+                </IconButton>
+            </CustomTooltip>
+            <ShareGuard>
+                <CustomTooltip title={t`Share`} disabled={!realUrl}>
+                    <IconButton
+                        color="inherit"
+                        disabled={!realUrl}
+                        onClick={() =>
+                            navigator
+                                .share({
+                                    title: `${mangaTitle} — ${name}`,
+                                    url: realUrl ?? undefined,
+                                })
+                                .catch(defaultPromiseErrorHandler('MangaToolbarMenu::share'))
+                        }
+                    >
+                        <ShareIcon />
+                    </IconButton>
+                </CustomTooltip>
+            </ShareGuard>
+        </Stack>
+    );
+});

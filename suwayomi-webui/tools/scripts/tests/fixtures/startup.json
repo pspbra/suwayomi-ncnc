@@ -1,0 +1,251 @@
+{
+    "USER_LOGIN": {
+        "data": {
+            "login": {
+                "accessToken": "mock-access-token",
+                "refreshToken": "mock-refresh-token",
+                "__typename": "LoginPayload"
+            }
+        }
+    },
+    "GET_GLOBAL_METADATAS": {
+        "data": {
+            "metas": {
+                "nodes": [],
+                "pageInfo": {
+                    "endCursor": "",
+                    "hasNextPage": false,
+                    "hasPreviousPage": false,
+                    "startCursor": "",
+                    "__typename": "PageInfo"
+                },
+                "totalCount": 0,
+                "__typename": "GlobalMetaNodeList"
+            }
+        }
+    },
+    "UPDATE_GLOBAL_METADATA": {
+        "data": {
+            "migrationMeta": {
+                "metas": [],
+                "__typename": "SetGlobalMetasPayload"
+            }
+        }
+    },
+    "GET_AUTH_STATUS": {
+        "data": {
+            "metas": {
+                "__typename": "GlobalMetaNodeList"
+            }
+        }
+    },
+    "GET_EXTENSIONS_FETCH": {
+        "data": {
+            "fetchExtensions": {
+                "extensions": [],
+                "extensionStores": [],
+                "__typename": "FetchExtensionsPayload"
+            }
+        }
+    },
+    "GET_SERVER_SETTINGS": {
+        "data": {
+            "settings": {
+                "ip": "",
+                "port": 0,
+                "socksProxyEnabled": false,
+                "socksProxyVersion": 0,
+                "socksProxyHost": "",
+                "socksProxyPort": "",
+                "socksProxyUsername": "",
+                "socksProxyPassword": "",
+                "webUIFlavor": "WEBUI",
+                "initialOpenInBrowserEnabled": false,
+                "webUIInterface": "BROWSER",
+                "electronPath": "",
+                "webUIChannel": "BUNDLED",
+                "webUIUpdateCheckInterval": 0,
+                "downloadAsCbz": false,
+                "downloadsPath": "",
+                "autoDownloadNewChapters": false,
+                "excludeEntryWithUnreadChapters": false,
+                "autoDownloadNewChaptersLimit": 0,
+                "autoDownloadIgnoreReUploads": false,
+                "downloadConversions": [],
+                "serveConversions": [],
+                "maxSourcesInParallel": 0,
+                "excludeUnreadChapters": false,
+                "excludeNotStarted": false,
+                "excludeCompleted": false,
+                "globalUpdateInterval": 0,
+                "updateMangas": false,
+                "authMode": "NONE",
+                "authPassword": "",
+                "authUsername": "",
+                "jwtAudience": "",
+                "jwtTokenExpiry": "",
+                "jwtRefreshExpiry": "",
+                "debugLogsEnabled": false,
+                "systemTrayEnabled": false,
+                "maxLogFileSize": "",
+                "maxLogFiles": 0,
+                "maxLogFolderSize": "",
+                "backupPath": "",
+                "backupTime": "",
+                "backupInterval": 0,
+                "backupTTL": 0,
+                "autoBackupIncludeCategories": false,
+                "autoBackupIncludeChapters": false,
+                "autoBackupIncludeClientData": false,
+                "autoBackupIncludeHistory": false,
+                "autoBackupIncludeManga": false,
+                "autoBackupIncludeServerSettings": false,
+                "autoBackupIncludeTracking": false,
+                "autoBackupIncludeUserSettings": false,
+                "localSourcePath": "",
+                "flareSolverrEnabled": false,
+                "flareSolverrUrl": "",
+                "flareSolverrTimeout": 0,
+                "flareSolverrSessionName": "",
+                "flareSolverrSessionTtl": 0,
+                "flareSolverrAsResponseFallback": false,
+                "opdsUseBinaryFileSizes": false,
+                "opdsItemsPerPage": 0,
+                "opdsEnablePageReadProgress": false,
+                "opdsMarkAsReadOnDownload": false,
+                "opdsShowOnlyUnreadChapters": false,
+                "opdsShowOnlyDownloadedChapters": false,
+                "opdsChapterSortOrder": "ASC",
+                "opdsCbzMimetype": "MODERN",
+                "opdsSkipChapterMetadataFeed": false,
+                "koreaderSyncChecksumMethod": "BINARY",
+                "koreaderSyncStrategyBackward": "PROMPT",
+                "koreaderSyncStrategyForward": "PROMPT",
+                "koreaderSyncPercentageTolerance": 0,
+                "databaseType": "H2",
+                "databaseUrl": "",
+                "databaseUsername": "",
+                "databasePassword": "",
+                "useHikariConnectionPool": false,
+                "kcefEnabled": false,
+                "syncDataCategories": false,
+                "syncDataChapters": false,
+                "syncDataHistory": false,
+                "syncDataManga": false,
+                "syncDataTracking": false,
+                "syncInterval": "",
+                "syncYomiApiKey": "",
+                "syncYomiEnabled": false,
+                "syncYomiHost": "",
+                "__typename": "SettingsType"
+            }
+        }
+    },
+    "GET_DOWNLOAD_STATUS": {
+        "data": {
+            "downloadStatus": {
+                "state": "STARTED",
+                "queue": [],
+                "__typename": "DownloadStatus"
+            }
+        }
+    },
+    "GET_ABOUT": {
+        "data": {
+            "aboutServer": {
+                "buildTime": "",
+                "buildType": "",
+                "discord": "",
+                "github": "",
+                "name": "",
+                "version": "v2.1.0",
+                "platformInfo": {
+                    "os": {
+                        "name": "",
+                        "build": "",
+                        "version": "v2.1.0",
+                        "__typename": "OSInfo"
+                    },
+                    "arch": "",
+                    "headless": false,
+                    "jvm": {
+                        "javaVersion": "",
+                        "vmName": "",
+                        "vmVendor": "",
+                        "vmVersion": "",
+                        "__typename": "JvmInfo"
+                    },
+                    "__typename": "PlatformInfo"
+                },
+                "__typename": "AboutServerPayload"
+            },
+            "aboutWebUI": {
+                "channel": "BUNDLED",
+                "tag": "",
+                "updateTimestamp": "",
+                "__typename": "AboutWebUI"
+            }
+        }
+    },
+    "GET_WEBUI_UPDATE_STATUS": {
+        "data": {
+            "getWebUIUpdateStatus": {
+                "info": {
+                    "channel": "BUNDLED",
+                    "tag": "",
+                    "__typename": "WebUIUpdateInfo"
+                },
+                "progress": 0,
+                "state": "IDLE",
+                "__typename": "WebUIUpdateStatus"
+            }
+        }
+    },
+    "CHECK_FOR_SERVER_UPDATES": {
+        "data": {
+            "checkForServerUpdates": []
+        }
+    },
+    "CHECK_FOR_WEBUI_UPDATE": {
+        "data": {
+            "checkForWebUIUpdate": {
+                "channel": "BUNDLED",
+                "tag": "",
+                "updateAvailable": false,
+                "__typename": "WebUIUpdateCheck"
+            }
+        }
+    },
+    "GET_CATEGORIES_LIBRARY": {
+        "data": {
+            "categories": {
+                "nodes": [],
+                "pageInfo": {
+                    "endCursor": "",
+                    "hasNextPage": false,
+                    "hasPreviousPage": false,
+                    "startCursor": "",
+                    "__typename": "PageInfo"
+                },
+                "totalCount": 0,
+                "__typename": "CategoryNodeList"
+            }
+        }
+    },
+    "GET_MANGAS_COUNT": {
+        "data": {
+            "mangas": {
+                "totalCount": 0,
+                "__typename": "MangaNodeList"
+            }
+        }
+    },
+    "GET_MIGRATABLE_SOURCES": {
+        "data": {
+            "mangas": {
+                "nodes": [],
+                "__typename": "MangaNodeList"
+            }
+        }
+    }
+}

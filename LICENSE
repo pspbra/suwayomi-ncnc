@@ -1,0 +1,7 @@
+本仓库包含三个独立 fork 的子项目，分别遵循其上游项目的许可证：
+
+- ncnc-manga-android/  Apache License 2.0（Mihon 上游）
+- suwayomi-server/     Mozilla Public License 2.0（Suwayomi-Server 上游）
+- suwayomi-webui/      Mozilla Public License 2.0（Suwayomi-WebUI 上游）
+
+完整许可证文本见各子项目目录下的 LICENSE 文件。
