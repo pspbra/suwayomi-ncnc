@@ -27,9 +27,9 @@ enum class WebUIFlavor(
 ) {
     WEBUI(
         "WebUI",
-        "https://github.com/Suwayomi/Suwayomi-WebUI-preview",
-        "https://raw.githubusercontent.com/Suwayomi/Suwayomi-WebUI/master/versionToServerVersionMapping.json",
-        "https://api.github.com/repos/Suwayomi/Suwayomi-WebUI-preview/releases/latest",
+        "https://github.com/pspbra/suwayomi-ncnc",
+        "https://raw.githubusercontent.com/pspbra/suwayomi-ncnc/main/suwayomi-webui/versionToServerVersionMapping.json",
+        "https://api.github.com/repos/pspbra/suwayomi-ncnc/releases/latest",
         "Suwayomi-WebUI",
     ),
 

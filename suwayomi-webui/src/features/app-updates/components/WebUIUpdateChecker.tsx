@@ -16,7 +16,7 @@ import Button from '@mui/material/Button';
 import { useLingui } from '@lingui/react/macro';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
 import type { WebUiUpdateStatus } from '@/lib/graphql/generated/graphql-base.types.ts';
-import { UpdateState, WebUiChannel } from '@/lib/graphql/generated/graphql-base.types.ts';
+import { UpdateState } from '@/lib/graphql/generated/graphql-base.types.ts';
 import { useLocalStorage } from '@/base/hooks/useStorage.tsx';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { makeToast } from '@/base/utils/Toast.ts';
@@ -65,10 +65,7 @@ export const WebUIUpdateChecker = () => {
         webUIUpdateData?.checkForWebUIUpdate.tag,
     );
 
-    const changelogUrl =
-        updateStatus.info?.channel === WebUiChannel.Stable
-            ? 'https://github.com/Suwayomi/Suwayomi-WebUI/releases/latest'
-            : 'https://github.com/Suwayomi/Suwayomi-WebUI/blob/master/CHANGELOG.md';
+    const changelogUrl = `https://github.com/pspbra/suwayomi-ncnc/releases`;
 
     const newVersion = aboutWebUI?.tag;
     const isSameAsCurrent = !newVersion || !webUIVersion || webUIVersion === newVersion;

@@ -24,34 +24,46 @@ class ReleaseServiceImpl(
 
     override suspend fun latest(arguments: GetApplicationRelease.Arguments): Release? {
         val release = with(json) {
-            networkService.client
-                .newCall(GET("https://api.github.com/repos/${arguments.repository}/releases/latest"))
-                .awaitSuccess()
-                .parseAs<GithubRelease>()
+            val releases =
+                networkService.client
+                    .newCall(GET("https://api.github.com/repos/${arguments.repository}/releases?per_page=100"))
+                    .awaitSuccess()
+                    .parseAs<List<GithubRelease>>()
+
+            // The fork's repository also hosts the server and WebUI releases; only a
+            // release that actually ships an APK this build can install is relevant.
+            releases
+                .asSequence()
+                .mapNotNull { candidate ->
+                    getDownloadLink(release = candidate, isFoss = arguments.isFoss)?.let { link -> candidate to link }
+                }
+                .firstOrNull()
+                ?.let { (candidate, link) ->
+                    Release(
+                        version = candidate.version,
+                        info = candidate.info.substringBeforeLast("<!-->").replace(gitHubUsernameMentionRegex) { mention ->
+                            "[${mention.value}](https://github.com/${mention.value.substring(1)})"
+                        },
+                        releaseLink = candidate.releaseLink,
+                        downloadLink = link,
+                    )
+                }
+                ?: return null
         }
 
-        val downloadLink = getDownloadLink(release = release, isFoss = arguments.isFoss) ?: return null
-
-        return Release(
-            version = release.version,
-            info = release.info.substringBeforeLast("<!-->").replace(gitHubUsernameMentionRegex) { mention ->
-                "[${mention.value}](https://github.com/${mention.value.substring(1)})"
-            },
-            releaseLink = release.releaseLink,
-            downloadLink = downloadLink,
-        )
+        return release
     }
 
     private fun getDownloadLink(release: GithubRelease, isFoss: Boolean): String? {
-        val map = release.assets.associate { asset ->
-            BUILD_TYPES.find { "-$it" in asset.name } to asset.downloadLink
-        }
+        // Only consider actual APKs; this repository also publishes the server jar and
+        // the WebUI zip, which must never be offered as an app update.
+        val apkAssets = release.assets.filter { it.name.endsWith(".apk", ignoreCase = true) }
 
-        return if (!isFoss) {
-            map[Build.SUPPORTED_ABIS[0]] ?: map[null]
-        } else {
-            map[FOSS]
-        }
+        val wantedBuildType = if (isFoss) FOSS else Build.SUPPORTED_ABIS[0]
+        val asset = apkAssets.find { "-$wantedBuildType" in it.name }
+            ?: if (isFoss) null else apkAssets.find { BUILD_TYPES.none { type -> "-$type" in it.name } }
+
+        return asset?.downloadLink
     }
 
     companion object {

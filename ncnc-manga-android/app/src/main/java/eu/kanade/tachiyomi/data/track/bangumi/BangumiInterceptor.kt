@@ -40,7 +40,7 @@ class BangumiInterceptor(
             .newBuilder()
             .header(
                 "User-Agent",
-                "antsylich/Mihon/v${BuildConfig.VERSION_NAME} (Android) (http://github.com/mihonapp/mihon)",
+                "ncnc-manga/v${BuildConfig.VERSION_NAME} (Android) (https://github.com/pspbra/suwayomi-ncnc)",
             ).addHeader("Authorization", "Bearer ${currAuth.accessToken}")
             .build()
             .let(chain::proceed)

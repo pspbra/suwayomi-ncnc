@@ -56,9 +56,9 @@ class MangaBakaApi(
                     .header(
                         "User-Agent",
                         buildString {
-                            append("Mihon/v${BuildConfig.VERSION_NAME} ")
+                            append("ncnc-manga/v${BuildConfig.VERSION_NAME} ")
                             append("(${BuildConfig.APPLICATION_ID} ${BuildConfig.COMMIT_SHA}) ")
-                            append("(Android) (https://github.com/mihonapp/mihon)")
+                            append("(Android) (https://github.com/pspbra/suwayomi-ncnc)")
                         },
                     ).build()
                     .let(it::proceed)

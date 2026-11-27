@@ -165,3 +165,15 @@ mutation {
 ```powershell
 .\gradlew.bat :server:test --tests "suwayomi.tachidesk.server.database.migration.ServerLibraryMigrationTest"
 ```
+
+## 本 fork 的发布与更新源
+
+三个产物都由 `pspbra/suwayomi-ncnc` 这一个仓库发布，更新检查不再回退到上游仓库：
+
+| 产物 | 更新检查看到的「最新版」判据 | 版本来源 |
+| --- | --- | --- |
+| 服务端 | release 资产里含 `.jar` 的最新 release | `buildSrc/.../Constants.kt` 的 `getTachideskVersion` |
+| WebUI | `versionToServerVersionMapping.json` 里 `uiVersion` 与 jar 内 `WEBUI_TAG` 比较 | `Constants.kt` 的 `webUIRevisionTag`，须与 `WebUI.zip` 的 `revision` 一致 |
+| Android | release 资产里含 `.apk` 的最新 release | `app/build.gradle.kts` 的 `versionName` |
+
+因此发布新版本时，服务端和 APK 的 release 必须带上各自的资产，否则对应的更新检查会跳过它。

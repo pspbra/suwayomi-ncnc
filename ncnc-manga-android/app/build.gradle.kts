@@ -45,8 +45,8 @@ android {
     defaultConfig {
         applicationId = "app.ncncmanhua"
 
-        versionCode = 37
-        versionName = "0.20.9"
+        versionCode = 38
+        versionName = "0.20.10"
 
         buildConfigField("boolean", "TELEMETRY_INCLUDED", "${Config.includeTelemetry}")
         buildConfigField("boolean", "UPDATER_ENABLED", "${Config.enableUpdater}")

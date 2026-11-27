@@ -10,9 +10,12 @@ import java.io.BufferedReader
 const val MainClass = "suwayomi.tachidesk.MainKt"
 
 // should be bumped with each stable release
-val getTachideskVersion = { "v2.5" }
+val getTachideskVersion = { "v2.6" }
 
-val webUIRevisionTag = "r3518"
+// Revision of the WebUI built from suwayomi-webui/ and bundled into this jar.
+// It must match the "revision" file inside WebUI.zip and the release tag this
+// fork publishes the WebUI zip under (see suwayomi-webui/versionToServerVersionMapping.json).
+val webUIRevisionTag = "r1"
 
 val webviewJbrRelease = "jbr-release-25.0.4b508.27"
 

@@ -6,7 +6,7 @@
 
 ## 版本管理注意事项
 
-- 当前应用版本为 `0.20.9`，`versionCode` 为 `37`。
+- 当前应用版本为 `0.20.10`，`versionCode` 为 `38`。
 - **每次更改项目代码或功能时，都必须同步将版本号向前递增一次**：`versionCode` 加 `1`，并将 `versionName` 的末位版本加 `1`。版本配置位于 `app/build.gradle.kts`。
 
 注意 `app_name` 还兼作新手引导里**默认存储目录**的目录名（`AndroidStorageFolderProvider`，即 `/storage/emulated/0/<app_name>`）。已有安装的目录记在偏好 `storage_dir` 里，且引导的存储步骤只有在用户显式选过目录后才会放行（`isSet()` = 键存在），因此改名不会让老安装“丢失”漫画；只有全新安装会看到新目录名，且用户可以自己另选。

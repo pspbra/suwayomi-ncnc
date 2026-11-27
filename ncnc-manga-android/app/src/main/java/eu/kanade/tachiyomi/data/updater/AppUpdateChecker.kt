@@ -35,12 +35,9 @@ class AppUpdateChecker(
     }
 }
 
+// This fork publishes its own releases; do not fall back to the upstream Mihon repo.
 val GITHUB_REPO: String by lazy {
-    if (isNightlyBuildType) {
-        "mihonapp/mihon-preview"
-    } else {
-        "mihonapp/mihon"
-    }
+    "pspbra/suwayomi-ncnc"
 }
 
 val RELEASE_TAG: String by lazy {
