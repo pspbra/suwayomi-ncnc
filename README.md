@@ -20,6 +20,19 @@
 三者通过服务端 GraphQL 契约耦合，契约说明见
 [`suwayomi-server/docs/Server-Library-WebUI-APK-Migration.md`](suwayomi-server/docs/Server-Library-WebUI-APK-Migration.md)。
 
+## 下载
+
+构建好的产物在 [Releases](https://github.com/pspbra/suwayomi-ncnc/releases) 发布，三种产物各自独立一个 release：
+
+| Release tag | 产物 |
+| --- | --- |
+| `v2.6` | 服务端 `Suwayomi-Server-v2.6.jar`（已内置 WebUI） |
+| `r1` | `Suwayomi-WebUI-r1.zip` 与 `md5sum`（服务端自动更新用） |
+| `android-v0.20.10` | Android 客户端 `ncnc-manga-0.20.10-arm64-v8a.apk` |
+
+三个组件的更新检查都读取本仓库的 release，并按资产类型区分（见下）。发布新版本时，对应的
+release 必须带上该产物的资产，否则更新检查会跳过它。
+
 ## 构建
 
 各子项目独立构建，命令见各自 README：
